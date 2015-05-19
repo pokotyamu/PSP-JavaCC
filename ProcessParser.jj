@@ -1,13 +1,21 @@
+options{
+    STATIC=false;
+}
+
 PARSER_BEGIN(ProcessParser)
     import java.io.*;
     public class ProcessParser{
         public static void print(String path) throws IOException{
             File file = new File(path);
-            try{
-                ProcessParser pp = new ProcessParser(new java.io.InputStreamReader(new FileInputStream(file)));
-                pp.compilation_unit();
-            }catch( ParseException ex){
-                System.out.println("parse error");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while((line = br.readLine()) != null){
+                try{
+                    ProcessParser pp = new ProcessParser(new ByteArrayInputStream(line.getBytes()));
+                    pp.compilation_unit();
+                }catch( ParseException ex){
+                    System.out.println("parse error");
+                }
             }
         }
     }

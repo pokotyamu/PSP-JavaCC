@@ -4,31 +4,35 @@
     public class ProcessParser implements ProcessParserConstants {
         public static void print(String path) throws IOException{
             File file = new File(path);
-            try{
-                ProcessParser pp = new ProcessParser(new java.io.InputStreamReader(new FileInputStream(file)));
-                pp.compilation_unit();
-            }catch( ParseException ex){
-                System.out.println("parse error");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            while((line = br.readLine()) != null){
+                try{
+                    ProcessParser pp = new ProcessParser(new ByteArrayInputStream(line.getBytes()));
+                    pp.compilation_unit();
+                }catch( ParseException ex){
+                    System.out.println("parse error");
+                }
             }
         }
 
-  static final public void compilation_unit() throws ParseException {
+  final public void compilation_unit() throws ParseException {
     condition();
 System.out.println("hoge : ");
   }
 
-  static final public void condition() throws ParseException {
+  final public void condition() throws ParseException {
     assignment();
   }
 
-  static final public void assignment() throws ParseException {
+  final public void assignment() throws ParseException {
     jj_consume_token(IDENTIFIERS);
     jj_consume_token(EQ);
     jj_consume_token(IDENTIFIERS);
     jj_consume_token(SM);
   }
 
-  static final public void test_bunp() throws ParseException {
+  final public void test_bunp() throws ParseException {
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -71,7 +75,7 @@ System.out.println("hoge : ");
     jj_consume_token(0);
   }
 
-  static final public void test_token() throws ParseException {Token t = null;
+  final public void test_token() throws ParseException {Token t = null;
     t = jj_consume_token(IDENTIFIERS);
 System.out.println("token : " + t.image);
     jj_consume_token(EQ);
@@ -79,17 +83,16 @@ System.out.println("token : " + t.image);
     jj_consume_token(IDENTIFIERS);
   }
 
-  static private boolean jj_initialized_once = false;
   /** Generated Token Manager. */
-  static public ProcessParserTokenManager token_source;
-  static SimpleCharStream jj_input_stream;
+  public ProcessParserTokenManager token_source;
+  SimpleCharStream jj_input_stream;
   /** Current token. */
-  static public Token token;
+  public Token token;
   /** Next token. */
-  static public Token jj_nt;
-  static private int jj_ntk;
-  static private int jj_gen;
-  static final private int[] jj_la1 = new int[3];
+  public Token jj_nt;
+  private int jj_ntk;
+  private int jj_gen;
+  final private int[] jj_la1 = new int[3];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
@@ -104,13 +107,6 @@ System.out.println("token : " + t.image);
   }
   /** Constructor with InputStream and supplied encoding */
   public ProcessParser(java.io.InputStream stream, String encoding) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser.  ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
     try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source = new ProcessParserTokenManager(jj_input_stream);
     token = new Token();
@@ -120,11 +116,11 @@ System.out.println("token : " + t.image);
   }
 
   /** Reinitialise. */
-  static public void ReInit(java.io.InputStream stream) {
+  public void ReInit(java.io.InputStream stream) {
      ReInit(stream, null);
   }
   /** Reinitialise. */
-  static public void ReInit(java.io.InputStream stream, String encoding) {
+  public void ReInit(java.io.InputStream stream, String encoding) {
     try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source.ReInit(jj_input_stream);
     token = new Token();
@@ -135,13 +131,6 @@ System.out.println("token : " + t.image);
 
   /** Constructor. */
   public ProcessParser(java.io.Reader stream) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser. ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
     jj_input_stream = new SimpleCharStream(stream, 1, 1);
     token_source = new ProcessParserTokenManager(jj_input_stream);
     token = new Token();
@@ -151,7 +140,7 @@ System.out.println("token : " + t.image);
   }
 
   /** Reinitialise. */
-  static public void ReInit(java.io.Reader stream) {
+  public void ReInit(java.io.Reader stream) {
     jj_input_stream.ReInit(stream, 1, 1);
     token_source.ReInit(jj_input_stream);
     token = new Token();
@@ -162,13 +151,6 @@ System.out.println("token : " + t.image);
 
   /** Constructor with generated Token Manager. */
   public ProcessParser(ProcessParserTokenManager tm) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser. ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
     token_source = tm;
     token = new Token();
     jj_ntk = -1;
@@ -185,7 +167,7 @@ System.out.println("token : " + t.image);
     for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
-  static private Token jj_consume_token(int kind) throws ParseException {
+  private Token jj_consume_token(int kind) throws ParseException {
     Token oldToken;
     if ((oldToken = token).next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
@@ -201,7 +183,7 @@ System.out.println("token : " + t.image);
 
 
 /** Get the next Token. */
-  static final public Token getNextToken() {
+  final public Token getNextToken() {
     if (token.next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
     jj_ntk = -1;
@@ -210,7 +192,7 @@ System.out.println("token : " + t.image);
   }
 
 /** Get the specific Token. */
-  static final public Token getToken(int index) {
+  final public Token getToken(int index) {
     Token t = token;
     for (int i = 0; i < index; i++) {
       if (t.next != null) t = t.next;
@@ -219,19 +201,19 @@ System.out.println("token : " + t.image);
     return t;
   }
 
-  static private int jj_ntk_f() {
+  private int jj_ntk_f() {
     if ((jj_nt=token.next) == null)
       return (jj_ntk = (token.next=token_source.getNextToken()).kind);
     else
       return (jj_ntk = jj_nt.kind);
   }
 
-  static private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-  static private int[] jj_expentry;
-  static private int jj_kind = -1;
+  private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+  private int[] jj_expentry;
+  private int jj_kind = -1;
 
   /** Generate ParseException. */
-  static public ParseException generateParseException() {
+  public ParseException generateParseException() {
     jj_expentries.clear();
     boolean[] la1tokens = new boolean[13];
     if (jj_kind >= 0) {
@@ -262,11 +244,11 @@ System.out.println("token : " + t.image);
   }
 
   /** Enable tracing. */
-  static final public void enable_tracing() {
+  final public void enable_tracing() {
   }
 
   /** Disable tracing. */
-  static final public void disable_tracing() {
+  final public void disable_tracing() {
   }
 
     }
