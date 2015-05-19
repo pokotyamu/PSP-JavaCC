@@ -16,71 +16,34 @@
             }
         }
 
-  final public void compilation_unit() throws ParseException {
+  final public void compilation_unit() throws ParseException {String str;
     condition();
-System.out.println("hoge : ");
   }
 
-  final public void condition() throws ParseException {
-    assignment();
+  final public void condition() throws ParseException {String str;
+    str = assignment();
+System.out.println(str);
   }
 
-  final public void assignment() throws ParseException {
-    jj_consume_token(IDENTIFIERS);
+  final public String assignment() throws ParseException {String t,t1;
+    t = expressionName();
     jj_consume_token(EQ);
-    jj_consume_token(IDENTIFIERS);
+    t1 = assignmentExp();
     jj_consume_token(SM);
+{if ("" != null) return t + " = " + t1+";";}
+    throw new Error("Missing return statement in function");
   }
 
-  final public void test_bunp() throws ParseException {
-    label_1:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case SPACE:{
-        ;
-        break;
-        }
-      default:
-        jj_la1[0] = jj_gen;
-        break label_1;
-      }
-      jj_consume_token(SPACE);
-    }
-    label_2:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case IDENTIFIERS:{
-        ;
-        break;
-        }
-      default:
-        jj_la1[1] = jj_gen;
-        break label_2;
-      }
-      test_token();
-      label_3:
-      while (true) {
-        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case SPACE:{
-          ;
-          break;
-          }
-        default:
-          jj_la1[2] = jj_gen;
-          break label_3;
-        }
-        jj_consume_token(SPACE);
-      }
-    }
-    jj_consume_token(0);
-  }
-
-  final public void test_token() throws ParseException {Token t = null;
+  final public String expressionName() throws ParseException {Token t;
     t = jj_consume_token(IDENTIFIERS);
-System.out.println("token : " + t.image);
-    jj_consume_token(EQ);
+{if ("" != null) return t.image;}
+    throw new Error("Missing return statement in function");
+  }
 
-    jj_consume_token(IDENTIFIERS);
+  final public String assignmentExp() throws ParseException {Token t;
+    t = jj_consume_token(IDENTIFIERS);
+{if ("" != null) return t.image;}
+    throw new Error("Missing return statement in function");
   }
 
   /** Generated Token Manager. */
@@ -92,13 +55,13 @@ System.out.println("token : " + t.image);
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[3];
+  final private int[] jj_la1 = new int[0];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x1000,0x800,0x1000,};
+      jj_la1_0 = new int[] {};
    }
 
   /** Constructor with InputStream. */
@@ -112,7 +75,6 @@ System.out.println("token : " + t.image);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -126,7 +88,7 @@ System.out.println("token : " + t.image);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 0; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -136,7 +98,6 @@ System.out.println("token : " + t.image);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -146,7 +107,6 @@ System.out.println("token : " + t.image);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -155,7 +115,6 @@ System.out.println("token : " + t.image);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -164,7 +123,6 @@ System.out.println("token : " + t.image);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -220,7 +178,7 @@ System.out.println("token : " + t.image);
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 0; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
