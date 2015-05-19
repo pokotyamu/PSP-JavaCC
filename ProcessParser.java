@@ -4,19 +4,12 @@
     public class ProcessParser implements ProcessParserConstants {
         public static void print(String path) throws IOException{
             File file = new File(path);
-            //            BufferedReader br = new BufferedReader(new FileReader(file));
-            //            String line;
-            //            while((line = br.readLine()) != null){
-                try{
+            try{
                 ProcessParser pp = new ProcessParser(new java.io.InputStreamReader(new FileInputStream(file)));
-                //                ProcessParser pp = new ProcessParser(new java.io.InputStreamReader(line));
-
-                    pp.compilation_unit();
-                }catch( ParseException ex){
-                    System.out.println("parse error");
-                }
-                //        }
-
+                pp.compilation_unit();
+            }catch( ParseException ex){
+                System.out.println("parse error");
+            }
         }
 
   static final public void compilation_unit() throws ParseException {
@@ -25,9 +18,14 @@ System.out.println("hoge : ");
   }
 
   static final public void condition() throws ParseException {
+    assignment();
+  }
+
+  static final public void assignment() throws ParseException {
     jj_consume_token(IDENTIFIERS);
     jj_consume_token(EQ);
     jj_consume_token(IDENTIFIERS);
+    jj_consume_token(SM);
   }
 
   static final public void test_bunp() throws ParseException {
