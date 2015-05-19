@@ -46,13 +46,15 @@ void compilation_unit(): {}
     }
 }
 
-
 void condition():{}
 {
-    <IDENTIFIERS> "=" <IDENTIFIERS>
+    assignment()
 }
 
-
+void assignment():{}
+{
+    <IDENTIFIERS> <EQ> <IDENTIFIERS> <SM>
+}
 
 void test_bunp():{}{
     (<SPACE>)* (test_token() (<SPACE>)*)* <EOF>
