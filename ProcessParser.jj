@@ -1,0 +1,72 @@
+PARSER_BEGIN(ProcessParser)
+    import java.io.*;
+    public class ProcessParser{
+        public static void print(String path) throws IOException{
+            File file = new File(path);
+            try{
+                ProcessParser pp = new ProcessParser(new java.io.InputStreamReader(new FileInputStream(file)));
+                pp.compilation_unit();
+            }catch( ParseException ex){
+                System.out.println("parse error");
+            }
+        }
+    }
+PARSER_END(ProcessParser)
+    
+SKIP :
+{
+    " " | " \r"
+}
+
+TOKEN :
+{
+          <DATASET :  "DataSet">
+        | <LC: "(">
+        | <RC: ")">
+        | <COM: ",">  
+        | <NL: "\n">
+        | <SM: ";">
+        | <EQ: "=">
+        }
+
+TOKEN:
+{
+    <STRING: "String">
+}
+
+TOKEN :{
+    <IDENTIFIERS: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9"])*>
+        |<SPACE: ([" ","\t","\n","\r","\f"])+>
+        }
+
+void compilation_unit(): {}
+{
+    condition() {
+        System.out.println("hoge : ");
+    }
+}
+
+
+void condition():{}
+{
+    <IDENTIFIERS> "=" <IDENTIFIERS>
+}
+
+
+
+void test_bunp():{}{
+    (<SPACE>)* (test_token() (<SPACE>)*)* <EOF>
+}
+
+
+void test_token():{
+    Token t = null;
+}{
+    t = <IDENTIFIERS>{
+        System.out.println("token : " + t.image);
+    }
+    <EQ>{}
+    <IDENTIFIERS>
+
+         
+}
