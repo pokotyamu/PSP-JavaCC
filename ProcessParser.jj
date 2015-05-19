@@ -47,36 +47,43 @@ TOKEN :{
         |<SPACE: ([" ","\t","\n","\r","\f"])+>
         }
 
-void compilation_unit(): {}
+void compilation_unit(): {
+    String str;
+}
 {
-    condition() {
-        System.out.println("hoge : ");
-    }
+    condition() 
 }
 
-void condition():{}
+void condition():{
+    String str;
+}
 {
-    assignment()
+    str = assignment(){System.out.println(str);}
 }
 
-void assignment():{}
+String assignment():{
+    String t,t1;
+}
 {
-    <IDENTIFIERS> <EQ> <IDENTIFIERS> <SM>
+    t = expressionName()
+        <EQ>
+        t1 = assignmentExp()
+        <SM>
+        {return t + " = " + t1+";";}
 }
 
-void test_bunp():{}{
-    (<SPACE>)* (test_token() (<SPACE>)*)* <EOF>
+String expressionName():{
+    Token t;
+}
+{
+    t = <IDENTIFIERS>
+        {return t.image;}
 }
 
-
-void test_token():{
-    Token t = null;
-}{
-    t = <IDENTIFIERS>{
-        System.out.println("token : " + t.image);
-    }
-    <EQ>{}
-    <IDENTIFIERS>
-
-         
+String assignmentExp():{
+    Token t;
 }
+{
+    t = <IDENTIFIERS>{return t.image;}
+}
+
