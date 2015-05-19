@@ -1,2 +1,2 @@
-hoge = eeee
-hoge = eieiei;
+condition = "class=2014";
+Graph(DB("A","x","y",condition));

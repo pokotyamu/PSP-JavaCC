@@ -13,7 +13,7 @@ PARSER_BEGIN(ProcessParser)
                 try{
                     ProcessParser pp = new ProcessParser(new ByteArrayInputStream(line.getBytes()));
                     pp.compilation_unit();
-                }catch( ParseException ex){
+                }catch(ParseException ex){
                     System.out.println("parse error");
                 }
             }
@@ -35,6 +35,7 @@ TOKEN :
         | <NL: "\n">
         | <SM: ";">
         | <EQ: "=">
+        | <WQ: "\"">
         }
 
 TOKEN:
@@ -46,9 +47,10 @@ TOKEN :{
     <IDENTIFIERS: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9"])*>
         |<SPACE: ([" ","\t","\n","\r","\f"])+>
         }
-
+TOKEN :{
+    <STR: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9","="])*>
+}
 void compilation_unit(): {
-    String str;
 }
 {
     condition() 
@@ -67,9 +69,11 @@ String assignment():{
 {
     t = expressionName()
         <EQ>
+        <WQ>
         t1 = assignmentExp()
+        <WQ>
         <SM>
-        {return t + " = " + t1+";";}
+        {return t + " = \"" + t1+"\";";}
 }
 
 String expressionName():{
@@ -84,6 +88,5 @@ String assignmentExp():{
     Token t;
 }
 {
-    t = <IDENTIFIERS>{return t.image;}
+    t = <STR>{return t.image;}
 }
-

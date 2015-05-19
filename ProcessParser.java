@@ -10,13 +10,13 @@
                 try{
                     ProcessParser pp = new ProcessParser(new ByteArrayInputStream(line.getBytes()));
                     pp.compilation_unit();
-                }catch( ParseException ex){
+                }catch(ParseException ex){
                     System.out.println("parse error");
                 }
             }
         }
 
-  final public void compilation_unit() throws ParseException {String str;
+  final public void compilation_unit() throws ParseException {
     condition();
   }
 
@@ -28,9 +28,11 @@ System.out.println(str);
   final public String assignment() throws ParseException {String t,t1;
     t = expressionName();
     jj_consume_token(EQ);
+    jj_consume_token(WQ);
     t1 = assignmentExp();
+    jj_consume_token(WQ);
     jj_consume_token(SM);
-{if ("" != null) return t + " = " + t1+";";}
+{if ("" != null) return t + " = \u005c"" + t1+"\u005c";";}
     throw new Error("Missing return statement in function");
   }
 
@@ -41,7 +43,7 @@ System.out.println(str);
   }
 
   final public String assignmentExp() throws ParseException {Token t;
-    t = jj_consume_token(IDENTIFIERS);
+    t = jj_consume_token(STR);
 {if ("" != null) return t.image;}
     throw new Error("Missing return statement in function");
   }
@@ -173,7 +175,7 @@ System.out.println(str);
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[13];
+    boolean[] la1tokens = new boolean[15];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -187,7 +189,7 @@ System.out.println(str);
         }
       }
     }
-    for (int i = 0; i < 13; i++) {
+    for (int i = 0; i < 15; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

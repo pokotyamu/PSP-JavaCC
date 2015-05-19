@@ -23,11 +23,15 @@ public interface ProcessParserConstants {
   /** RegularExpression Id. */
   int EQ = 9;
   /** RegularExpression Id. */
-  int STRING = 10;
+  int WQ = 10;
   /** RegularExpression Id. */
-  int IDENTIFIERS = 11;
+  int STRING = 11;
   /** RegularExpression Id. */
-  int SPACE = 12;
+  int IDENTIFIERS = 12;
+  /** RegularExpression Id. */
+  int SPACE = 13;
+  /** RegularExpression Id. */
+  int STR = 14;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -44,9 +48,11 @@ public interface ProcessParserConstants {
     "\"\\n\"",
     "\";\"",
     "\"=\"",
+    "\"\\\"\"",
     "\"String\"",
     "<IDENTIFIERS>",
     "<SPACE>",
+    "<STR>",
   };
 
 }
