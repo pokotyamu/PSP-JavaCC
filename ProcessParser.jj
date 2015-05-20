@@ -3,7 +3,10 @@ options{
 }
 
 PARSER_BEGIN(ProcessParser)
+    import java.lang.*;
     import java.io.*;
+    import java.util.*;
+
     public class ProcessParser{
         public static void print(String path) throws IOException{
             File file = new File(path);
@@ -11,10 +14,11 @@ PARSER_BEGIN(ProcessParser)
             String line;
             while((line = br.readLine()) != null){
                 try{
+                    System.out.println("hoge "+line);
                     ProcessParser pp = new ProcessParser(new ByteArrayInputStream(line.getBytes()));
                     pp.compilation_unit();
                 }catch(ParseException ex){
-                    System.out.println("parse error");
+                    System.out.println(ex);
                 }
             }
         }
@@ -23,37 +27,46 @@ PARSER_END(ProcessParser)
     
 SKIP :
 {
-    " " | " \r"
+          " "
+        | "\r"
+        | "\t"
+        | "\f"
+        | "\n"
 }
 
 TOKEN :
 {
-          <DATASET :  "DataSet">
-        | <LC: "(">
+          <LC: "(">
         | <RC: ")">
         | <COM: ",">  
-        | <NL: "\n">
         | <SM: ";">
         | <EQ: "=">
         | <WQ: "\"">
-        }
+        | <STRING: "String">
+        | <DATASET :  "DataSet">
+        | <GRAPH: "Graph">
+        | <DB: "DB">
 
-TOKEN:
-{
-    <STRING: "String">
+
 }
 
 TOKEN :{
-    <IDENTIFIERS: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9"])*>
-        |<SPACE: ([" ","\t","\n","\r","\f"])+>
+          <IDENTIFIERS: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9"])*>
+
         }
 TOKEN :{
-    <STR: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9","="])*>
+          <STR: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9","="])*>
+        | <GRAPH_TYPE: (<IDENTIFIERS>)>
+        | <TABLE_NAME: (<STR>)>
+        | <X_ASIX: (<STR>)>
+        | <Y_ASIX: (<STR>)>
+        | <PROCESS_NAME: (<STR>)>
 }
 void compilation_unit(): {
 }
 {
-    condition() 
+    condition()
+        expression()
 }
 
 void condition():{
@@ -89,4 +102,85 @@ String assignmentExp():{
 }
 {
     t = <STR>{return t.image;}
+}
+
+void expression():{
+    String exp="";
+}
+{
+    exp = graphExpression()<SM>
+        {System.out.println(exp+";");}
+}
+
+String graphExpression():{
+    String data_exp,graph_type="";
+}
+{
+        <GRAPH>
+        <LC>
+        data_exp = dataExpression()
+        <COM>
+        <GRAPH_TYPE>
+        <RC>
+        <SM>
+        { return "Graph.print("+data_exp+","+graph_type+")"; }
+}
+
+
+
+String dataExpression():{
+    String data_exp = "";
+}
+{
+    data_exp = dbExpression()
+        {return data_exp;}
+}
+
+String processExpression():{
+    Token name;
+    String input;
+}
+{
+        name = <PROCESS_NAME>
+               <LC>
+       input = input()
+               <RC>
+        {return name.image + "("+input+")";}
+}
+
+String input():{
+    String exp1="",exp2="";
+}
+{
+    exp1 = dataExpression()
+        {return exp1;}
+        |
+        <COM>
+        exp2 = dataExpression()
+            {return exp1 + ","+exp2;}
+}
+
+String dbExpression():{
+    String db_input;
+}
+{
+    <DB>
+        <LC>
+        db_input = dbInput()
+        <RC>
+        {return "DB("+db_input+")";}
+}
+String dbInput():{
+    Token table_name,x_asix,y_asix,condition;
+}
+{
+    table_name = <TABLE_NAME>
+        <COM>
+        x_asix = <X_ASIX>
+        <COM>
+        y_asix = <Y_ASIX>
+        <COM>
+        condition = <STR>
+        {return table_name.image+","+x_asix.image+","+y_asix.image+","+condition.image;}
+        
 }

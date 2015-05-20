@@ -1,2 +1,1 @@
-condition = "class=20";
 Graph(DB("A","B","C",condition),"Line");
