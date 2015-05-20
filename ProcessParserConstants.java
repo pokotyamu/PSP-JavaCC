@@ -32,16 +32,6 @@ public interface ProcessParserConstants {
   int IDENTIFIERS = 16;
   /** RegularExpression Id. */
   int STR = 17;
-  /** RegularExpression Id. */
-  int GRAPH_TYPE = 18;
-  /** RegularExpression Id. */
-  int TABLE_NAME = 19;
-  /** RegularExpression Id. */
-  int X_ASIX = 20;
-  /** RegularExpression Id. */
-  int Y_ASIX = 21;
-  /** RegularExpression Id. */
-  int PROCESS_NAME = 22;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -66,11 +56,6 @@ public interface ProcessParserConstants {
     "\"DB\"",
     "<IDENTIFIERS>",
     "<STR>",
-    "<GRAPH_TYPE>",
-    "<TABLE_NAME>",
-    "<X_ASIX>",
-    "<Y_ASIX>",
-    "<PROCESS_NAME>",
   };
 
 }

@@ -8,15 +8,11 @@
         public static void print(String path) throws IOException{
             File file = new File(path);
             BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while((line = br.readLine()) != null){
-                try{
-                    System.out.println("hoge "+line);
-                    ProcessParser pp = new ProcessParser(new ByteArrayInputStream(line.getBytes()));
-                    pp.compilation_unit();
-                }catch(ParseException ex){
-                    System.out.println(ex);
-                }
+            try{
+                ProcessParser pp = new ProcessParser(br);
+                pp.compilation_unit();
+            }catch(ParseException ex){
+                System.out.println(ex);
             }
         }
 
@@ -59,15 +55,17 @@ System.out.println(str);
 System.out.println(exp+";");
   }
 
-  final public String graphExpression() throws ParseException {String data_exp,graph_type="";
+  final public String graphExpression() throws ParseException {String data_exp;
+    Token graph_type;
     jj_consume_token(GRAPH);
     jj_consume_token(LC);
     data_exp = dataExpression();
     jj_consume_token(COM);
-    jj_consume_token(GRAPH_TYPE);
+    jj_consume_token(WQ);
+    graph_type = graphType();
+    jj_consume_token(WQ);
     jj_consume_token(RC);
-    jj_consume_token(SM);
-{if ("" != null) return "Graph.print("+data_exp+","+graph_type+")";}
+{if ("" != null) return "Graph.print("+data_exp+","+graph_type.image+")";}
     throw new Error("Missing return statement in function");
   }
 
@@ -79,7 +77,7 @@ System.out.println(exp+";");
 
   final public String processExpression() throws ParseException {Token name;
     String input;
-    name = jj_consume_token(PROCESS_NAME);
+    name = processName();
     jj_consume_token(LC);
     input = input();
     jj_consume_token(RC);
@@ -118,14 +116,50 @@ System.out.println(exp+";");
   }
 
   final public String dbInput() throws ParseException {Token table_name,x_asix,y_asix,condition;
-    table_name = jj_consume_token(TABLE_NAME);
+    jj_consume_token(WQ);
+    table_name = tableName();
+    jj_consume_token(WQ);
     jj_consume_token(COM);
-    x_asix = jj_consume_token(X_ASIX);
+    jj_consume_token(WQ);
+    x_asix = xAsix();
+    jj_consume_token(WQ);
     jj_consume_token(COM);
-    y_asix = jj_consume_token(Y_ASIX);
+    jj_consume_token(WQ);
+    y_asix = yAsix();
+    jj_consume_token(WQ);
     jj_consume_token(COM);
-    condition = jj_consume_token(STR);
+    condition = jj_consume_token(IDENTIFIERS);
 {if ("" != null) return table_name.image+","+x_asix.image+","+y_asix.image+","+condition.image;}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public Token graphType() throws ParseException {Token t;
+    t = jj_consume_token(IDENTIFIERS);
+{if ("" != null) return t;}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public Token tableName() throws ParseException {Token t;
+    t = jj_consume_token(IDENTIFIERS);
+{if ("" != null) return t;}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public Token xAsix() throws ParseException {Token t;
+    t = jj_consume_token(IDENTIFIERS);
+{if ("" != null) return t;}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public Token yAsix() throws ParseException {Token t;
+    t = jj_consume_token(IDENTIFIERS);
+{if ("" != null) return t;}
+    throw new Error("Missing return statement in function");
+  }
+
+  final public Token processName() throws ParseException {Token t;
+    t = jj_consume_token(IDENTIFIERS);
+{if ("" != null) return t;}
     throw new Error("Missing return statement in function");
   }
 
@@ -261,7 +295,7 @@ System.out.println(exp+";");
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[23];
+    boolean[] la1tokens = new boolean[18];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -275,7 +309,7 @@ System.out.println(exp+";");
         }
       }
     }
-    for (int i = 0; i < 23; i++) {
+    for (int i = 0; i < 18; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
