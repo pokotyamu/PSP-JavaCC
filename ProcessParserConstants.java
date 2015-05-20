@@ -9,25 +9,39 @@ public interface ProcessParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int DATASET = 3;
+  int LC = 6;
   /** RegularExpression Id. */
-  int LC = 4;
+  int RC = 7;
   /** RegularExpression Id. */
-  int RC = 5;
+  int COM = 8;
   /** RegularExpression Id. */
-  int COM = 6;
+  int SM = 9;
   /** RegularExpression Id. */
-  int NL = 7;
+  int EQ = 10;
   /** RegularExpression Id. */
-  int SM = 8;
+  int WQ = 11;
   /** RegularExpression Id. */
-  int EQ = 9;
+  int STRING = 12;
   /** RegularExpression Id. */
-  int STRING = 10;
+  int DATASET = 13;
   /** RegularExpression Id. */
-  int IDENTIFIERS = 11;
+  int GRAPH = 14;
   /** RegularExpression Id. */
-  int SPACE = 12;
+  int DB = 15;
+  /** RegularExpression Id. */
+  int IDENTIFIERS = 16;
+  /** RegularExpression Id. */
+  int STR = 17;
+  /** RegularExpression Id. */
+  int GRAPH_TYPE = 18;
+  /** RegularExpression Id. */
+  int TABLE_NAME = 19;
+  /** RegularExpression Id. */
+  int X_ASIX = 20;
+  /** RegularExpression Id. */
+  int Y_ASIX = 21;
+  /** RegularExpression Id. */
+  int PROCESS_NAME = 22;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -36,17 +50,27 @@ public interface ProcessParserConstants {
   String[] tokenImage = {
     "<EOF>",
     "\" \"",
-    "\" \\r\"",
-    "\"DataSet\"",
+    "\"\\r\"",
+    "\"\\t\"",
+    "\"\\f\"",
+    "\"\\n\"",
     "\"(\"",
     "\")\"",
     "\",\"",
-    "\"\\n\"",
     "\";\"",
     "\"=\"",
+    "\"\\\"\"",
     "\"String\"",
+    "\"DataSet\"",
+    "\"Graph\"",
+    "\"DB\"",
     "<IDENTIFIERS>",
-    "<SPACE>",
+    "<STR>",
+    "<GRAPH_TYPE>",
+    "<TABLE_NAME>",
+    "<X_ASIX>",
+    "<Y_ASIX>",
+    "<PROCESS_NAME>",
   };
 
 }
