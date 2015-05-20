@@ -43,21 +43,17 @@ TOKEN :
         | <DATASET :  "DataSet">
         | <GRAPH: "Graph">
         | <DB: "DB">
-        | <GRAPH_TYPE: (<IDENTIFIERS>)>
-        | <TABLE_NAME: (<IDENTIFIERS>)>
-        | <X_ASIX: (<IDENTIFIERS>)>
-        | <Y_ASIX: (<IDENTIFIERS>)>
-        | <PROCESS_NAME: (<IDENTIFIERS>)>
+
 }
 
 TOKEN :{
           <IDENTIFIERS: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9"])*>
-
         }
 TOKEN :{
           <STR: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9","="])*>
-
 }
+
+
 void compilation_unit(): {
 }
 {
@@ -109,7 +105,8 @@ void expression():{
 }
 
 String graphExpression():{
-    String data_exp,graph_type="";
+    String data_exp;
+    Token graph_type;
 }
 {
         <GRAPH>
@@ -117,11 +114,10 @@ String graphExpression():{
         data_exp = dataExpression()
         <COM>
         <WQ>
-        <GRAPH_TYPE>
+        graph_type = graphType()
         <WQ>
         <RC>
-        <SM>
-        { return "Graph.print("+data_exp+","+graph_type+")"; }
+        { return "Graph.print("+data_exp+","+graph_type.image+")"; }
 }
 
 
@@ -139,7 +135,7 @@ String processExpression():{
     String input;
 }
 {
-        name = <PROCESS_NAME>
+    name = processName()
                <LC>
        input = input()
                <RC>
@@ -166,25 +162,54 @@ String dbExpression():{
         <LC>
         db_input = dbInput()
         <RC>
-        {return "DB("+db_input+")";}
+        {
+            return "DB("+db_input+")";
+        }
 }
 String dbInput():{
     Token table_name,x_asix,y_asix,condition;
 }
 {
                      <WQ>
-        table_name = <TABLE_NAME>
+        table_name = tableName()
                      <WQ>
         <COM>
                      <WQ>
-        x_asix = <X_ASIX>
+        x_asix = xAsix()
                      <WQ>
         <COM>
                      <WQ>
-        y_asix = <Y_ASIX>
+        y_asix = yAsix()
                      <WQ>
         <COM>
         condition = <IDENTIFIERS>
-        {return table_name.image+","+x_asix.image+","+y_asix.image+","+condition.image;}
+        { return table_name.image+","+x_asix.image+","+y_asix.image+","+condition.image;}
         
 }
+
+Token graphType():{
+    Token t;
+}{
+    t = <IDENTIFIERS>{return t;}
+}
+Token tableName():{
+    Token t;
+}{
+    t = <IDENTIFIERS>{return t;}
+}
+Token xAsix():{
+    Token t;
+}{
+    t = <IDENTIFIERS>{return t;}
+}
+Token yAsix():{
+    Token t;
+}{
+    t = <IDENTIFIERS>{return t;}
+}
+Token processName():{
+    Token t;
+}{
+    t = <IDENTIFIERS>{return t;}
+}    
+
