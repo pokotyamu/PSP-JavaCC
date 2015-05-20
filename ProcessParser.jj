@@ -11,15 +11,11 @@ PARSER_BEGIN(ProcessParser)
         public static void print(String path) throws IOException{
             File file = new File(path);
             BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while((line = br.readLine()) != null){
-                try{
-                    System.out.println("hoge "+line);
-                    ProcessParser pp = new ProcessParser(new ByteArrayInputStream(line.getBytes()));
-                    pp.compilation_unit();
-                }catch(ParseException ex){
-                    System.out.println(ex);
-                }
+            try{
+                ProcessParser pp = new ProcessParser(br);
+                pp.compilation_unit();
+            }catch(ParseException ex){
+                System.out.println(ex);
             }
         }
     }
@@ -32,6 +28,7 @@ SKIP :
         | "\t"
         | "\f"
         | "\n"
+              
 }
 
 TOKEN :
@@ -46,8 +43,11 @@ TOKEN :
         | <DATASET :  "DataSet">
         | <GRAPH: "Graph">
         | <DB: "DB">
-
-
+        | <GRAPH_TYPE: (<IDENTIFIERS>)>
+        | <TABLE_NAME: (<IDENTIFIERS>)>
+        | <X_ASIX: (<IDENTIFIERS>)>
+        | <Y_ASIX: (<IDENTIFIERS>)>
+        | <PROCESS_NAME: (<IDENTIFIERS>)>
 }
 
 TOKEN :{
@@ -56,11 +56,7 @@ TOKEN :{
         }
 TOKEN :{
           <STR: ["a"-"z","A"-"Z","_"](["a"-"z","A"-"Z","_","0"-"9","="])*>
-        | <GRAPH_TYPE: (<IDENTIFIERS>)>
-        | <TABLE_NAME: (<STR>)>
-        | <X_ASIX: (<STR>)>
-        | <Y_ASIX: (<STR>)>
-        | <PROCESS_NAME: (<STR>)>
+
 }
 void compilation_unit(): {
 }
@@ -120,7 +116,9 @@ String graphExpression():{
         <LC>
         data_exp = dataExpression()
         <COM>
+        <WQ>
         <GRAPH_TYPE>
+        <WQ>
         <RC>
         <SM>
         { return "Graph.print("+data_exp+","+graph_type+")"; }
@@ -174,13 +172,19 @@ String dbInput():{
     Token table_name,x_asix,y_asix,condition;
 }
 {
-    table_name = <TABLE_NAME>
+                     <WQ>
+        table_name = <TABLE_NAME>
+                     <WQ>
         <COM>
+                     <WQ>
         x_asix = <X_ASIX>
+                     <WQ>
         <COM>
+                     <WQ>
         y_asix = <Y_ASIX>
+                     <WQ>
         <COM>
-        condition = <STR>
+        condition = <IDENTIFIERS>
         {return table_name.image+","+x_asix.image+","+y_asix.image+","+condition.image;}
         
 }
