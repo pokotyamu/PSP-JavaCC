@@ -12,7 +12,7 @@ PARSER_BEGIN(ProcessParser)
             Contents c = new Contents();
             try{
                 ProcessParser pp = new ProcessParser(getBR(path));
-                pp.compilation_unit();
+                pp.compilation_unit(c);
             }catch(ParseException ex){
                 System.out.println(ex);
             }
@@ -58,21 +58,21 @@ TOKEN :{
 }
 
 
-void compilation_unit(): {
+void compilation_unit(Contents c): {
 }
 {
-    condition()
+    condition(c)
         expression()
 }
 
-void condition():{
+void condition(Contents c):{
     String str;
 }
 {
-    str = assignment(){System.out.println(str);}
+    str = assignment(c){System.out.println(str);}
 }
 
-String assignment():{
+String assignment(Contents c):{
     String t,t1;
 }
 {
@@ -82,7 +82,9 @@ String assignment():{
         t1 = assignmentExp()
         <WQ>
         <SM>
-        {return t + " = \"" + t1+"\";";}
+    {
+        c.setCondition(t1);
+        return t + " = \"" + t1+"\";";}
 }
 
 String expressionName():{

@@ -1,6 +1,4 @@
-
 public class Contents{
-
     private String condition;
     
     public Contents(){
@@ -14,5 +12,4 @@ public class Contents{
     public String getCondition(){
         return this.condition;
     }
-
 }

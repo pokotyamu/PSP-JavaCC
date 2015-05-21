@@ -9,7 +9,7 @@
             Contents c = new Contents();
             try{
                 ProcessParser pp = new ProcessParser(getBR(path));
-                pp.compilation_unit();
+                pp.compilation_unit(c);
             }catch(ParseException ex){
                 System.out.println(ex);
             }
@@ -19,24 +19,25 @@
             return new BufferedReader(new FileReader(new File(path)));
         }
 
-  final public void compilation_unit() throws ParseException {
-    condition();
+  final public void compilation_unit(Contents c) throws ParseException {
+    condition(c);
     expression();
   }
 
-  final public void condition() throws ParseException {String str;
-    str = assignment();
+  final public void condition(Contents c) throws ParseException {String str;
+    str = assignment(c);
 System.out.println(str);
   }
 
-  final public String assignment() throws ParseException {String t,t1;
+  final public String assignment(Contents c) throws ParseException {String t,t1;
     t = expressionName();
     jj_consume_token(EQ);
     jj_consume_token(WQ);
     t1 = assignmentExp();
     jj_consume_token(WQ);
     jj_consume_token(SM);
-{if ("" != null) return t + " = \u005c"" + t1+"\u005c";";}
+c.setCondition(t1);
+        {if ("" != null) return t + " = \u005c"" + t1+"\u005c";";}
     throw new Error("Missing return statement in function");
   }
 
