@@ -92,15 +92,18 @@ System.out.println(exp+";");
   final public String processExpression() throws ParseException {Token name;
     String input;
     name = processName();
+System.out.println("Pro_name: "+name);
     jj_consume_token(LC);
     input = input();
     jj_consume_token(RC);
-{if ("" != null) return name.image + "("+input+")";}
+System.out.println("input: "+input);
+            {if ("" != null) return name.image + "("+input+")";}
     throw new Error("Missing return statement in function");
   }
 
   final public String input() throws ParseException {String exp,temp;
     exp = dataExpression();
+System.out.println("exp: "+exp);
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -114,7 +117,8 @@ System.out.println(exp+";");
       }
       jj_consume_token(COM);
       temp = dataExpression();
-exp += temp;
+System.out.println("temp: "+temp);
+                exp += temp;
     }
 {if ("" != null) return exp;}
     throw new Error("Missing return statement in function");
@@ -122,6 +126,7 @@ exp += temp;
 
   final public String dbExpression() throws ParseException {String db_input;
     jj_consume_token(DB);
+System.out.println("DB:");
     jj_consume_token(LC);
     db_input = dbInput();
     jj_consume_token(RC);
@@ -143,7 +148,11 @@ exp += temp;
     jj_consume_token(WQ);
     jj_consume_token(COM);
     condition = jj_consume_token(IDENTIFIERS);
-{if ("" != null) return table_name.image+","+x_asix.image+","+y_asix.image+","+condition.image;}
+System.out.println("Table:"+table_name.image);
+            System.out.println("X:"+x_asix.image);
+            System.out.println("Y:"+y_asix.image);
+            System.out.println("condition:"+condition.image);
+            {if ("" != null) return table_name.image+","+x_asix.image+","+y_asix.image+","+condition.image;}
     throw new Error("Missing return statement in function");
   }
 

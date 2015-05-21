@@ -139,10 +139,14 @@ String processExpression():{
 }
 {
     name = processName()
-               <LC>
+        {   System.out.println("Pro_name: "+name);}
+        <LC>
        input = input()
                <RC>
-        {return name.image + "("+input+")";}
+        {
+
+            System.out.println("input: "+input);
+            return name.image + "("+input+")";}
 }
 
 String input():{
@@ -150,8 +154,11 @@ String input():{
 }
 {
     exp = dataExpression()
+        {System.out.println("exp: "+exp);}
         (<COM> temp = dataExpression()
-            {exp += temp;}
+            {
+                System.out.println("temp: "+temp);
+                exp += temp;}
          )*
         { return exp; }
 }
@@ -161,6 +168,7 @@ String dbExpression():{
 }
 {
     <DB>
+        {  System.out.println("DB:");}
         <LC>
         db_input = dbInput()
         <RC>
@@ -183,7 +191,12 @@ String dbInput():{
                      <WQ>
         <COM>
         condition = <IDENTIFIERS>
-        { return table_name.image+","+x_asix.image+","+y_asix.image+","+condition.image;}
+        {
+            System.out.println("Table:"+table_name.image);
+            System.out.println("X:"+x_asix.image);
+            System.out.println("Y:"+y_asix.image);
+            System.out.println("condition:"+condition.image);
+            return table_name.image+","+x_asix.image+","+y_asix.image+","+condition.image;}
         
 }
 
