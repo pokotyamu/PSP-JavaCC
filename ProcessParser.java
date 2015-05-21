@@ -5,15 +5,18 @@
     import java.util.*;
 
     public class ProcessParser implements ProcessParserConstants {
-        public static void print(String path) throws IOException{
-            File file = new File(path);
-            BufferedReader br = new BufferedReader(new FileReader(file));
+        public static Contents parse(String path) throws IOException{
+            Contents c = new Contents();
             try{
-                ProcessParser pp = new ProcessParser(br);
+                ProcessParser pp = new ProcessParser(getBR(path));
                 pp.compilation_unit();
             }catch(ParseException ex){
                 System.out.println(ex);
             }
+            return c;
+        }
+        private static BufferedReader getBR(String path) throws IOException{
+            return new BufferedReader(new FileReader(new File(path)));
         }
 
   final public void compilation_unit() throws ParseException {

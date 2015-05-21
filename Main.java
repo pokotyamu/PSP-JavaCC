@@ -2,6 +2,7 @@ import java.io.*;
 
 public class Main{
     public static void main(String[] args) throws IOException{
-        ProcessParser.print("PSP1.txt");
+        Contents c = ProcessParser.parse("PSP1.txt");
+        System.out.println(c);
     }
 }
