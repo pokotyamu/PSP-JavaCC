@@ -70,8 +70,22 @@ System.out.println(exp+";");
   }
 
   final public String dataExpression() throws ParseException {String data_exp = "";
-    data_exp = dbExpression();
+    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+    case DB:{
+      data_exp = dbExpression();
 {if ("" != null) return data_exp;}
+      break;
+      }
+    case IDENTIFIERS:{
+      data_exp = processExpression();
+{if ("" != null) return data_exp;}
+      break;
+      }
+    default:
+      jj_la1[0] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
+    }
     throw new Error("Missing return statement in function");
   }
 
@@ -85,24 +99,24 @@ System.out.println(exp+";");
     throw new Error("Missing return statement in function");
   }
 
-  final public String input() throws ParseException {String exp1="",exp2="";
-    switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-    case DB:{
-      exp1 = dataExpression();
-{if ("" != null) return exp1;}
-      break;
+  final public String input() throws ParseException {String exp,temp;
+    exp = dataExpression();
+    label_1:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case COM:{
+        ;
+        break;
+        }
+      default:
+        jj_la1[1] = jj_gen;
+        break label_1;
       }
-    case COM:{
       jj_consume_token(COM);
-      exp2 = dataExpression();
-{if ("" != null) return exp1 + ","+exp2;}
-      break;
-      }
-    default:
-      jj_la1[0] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
+      temp = dataExpression();
+exp += temp;
     }
+{if ("" != null) return exp;}
     throw new Error("Missing return statement in function");
   }
 
@@ -172,13 +186,13 @@ System.out.println(exp+";");
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[1];
+  final private int[] jj_la1 = new int[2];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x8100,};
+      jj_la1_0 = new int[] {0x18000,0x100,};
    }
 
   /** Constructor with InputStream. */
@@ -192,7 +206,7 @@ System.out.println(exp+";");
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -206,7 +220,7 @@ System.out.println(exp+";");
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -216,7 +230,7 @@ System.out.println(exp+";");
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -226,7 +240,7 @@ System.out.println(exp+";");
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -235,7 +249,7 @@ System.out.println(exp+";");
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -244,7 +258,7 @@ System.out.println(exp+";");
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -300,7 +314,7 @@ System.out.println(exp+";");
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 2; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {

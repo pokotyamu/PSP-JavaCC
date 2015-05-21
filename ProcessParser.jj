@@ -127,7 +127,10 @@ String dataExpression():{
 }
 {
     data_exp = dbExpression()
-        {return data_exp;}
+      {return data_exp;}
+    |
+        data_exp = processExpression()
+            {return data_exp;}
 }
 
 String processExpression():{
@@ -143,15 +146,14 @@ String processExpression():{
 }
 
 String input():{
-    String exp1="",exp2="";
+    String exp,temp;
 }
 {
-    exp1 = dataExpression()
-        {return exp1;}
-        |
-        <COM>
-        exp2 = dataExpression()
-            {return exp1 + ","+exp2;}
+    exp = dataExpression()
+        (<COM> temp = dataExpression()
+            {exp += temp;}
+         )*
+        { return exp; }
 }
 
 String dbExpression():{
@@ -162,9 +164,7 @@ String dbExpression():{
         <LC>
         db_input = dbInput()
         <RC>
-        {
-            return "DB("+db_input+")";
-        }
+    { return "DB("+db_input+")";}
 }
 String dbInput():{
     Token table_name,x_asix,y_asix,condition;
