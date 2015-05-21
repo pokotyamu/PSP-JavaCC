@@ -1,2 +1,2 @@
 condition = "class=20";
-Graph(ooo(hoge(DB("A","B","C",condition)),DB("A","B","C",condition)),"Line");
+Graph(ooo(hoge(DB("table","x_asix","y_asix",condition)),DB("A","B","C",condition)),"Line");
