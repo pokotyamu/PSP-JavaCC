@@ -14,7 +14,7 @@ import java.io.IOException;
  *
  * @author pokotyamu
  */
-public class Max extends AbstractFunctionBox{
+public class Max extends AbstractOneArgBox{
     int PROID = 399;
     
     

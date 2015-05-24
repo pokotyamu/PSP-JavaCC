@@ -12,7 +12,7 @@ import pspdata.Pair;
  *
  * @author pokotyamu
  */
-public class Division extends AbstractFunctionBox{
+public class Division extends AbstractTwoArgBox{
 
     @Override
     protected DataSet initDataSet(DataSet ds1, DataSet ds2){

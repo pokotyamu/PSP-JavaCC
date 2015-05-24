@@ -32,6 +32,7 @@ public class Contents{
     public void printPro(){
         for(AbstractBox name: pros){
             System.out.println(name);
+            System.out.println(name.getArgSize());
         }
     }
 

@@ -14,7 +14,7 @@ import sqlbox.*;
  *
  * @author kaori
  */
-public class Productivity_k extends AbstractFunctionBox{
+public class Productivity_k extends AbstractTwoArgBox{
     @Override
     public DataSet function(String whereString)
     {

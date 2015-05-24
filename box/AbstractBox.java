@@ -22,6 +22,8 @@ public abstract class AbstractBox {
             return function(whereString);
         }
     }
+
+    public abstract int getArgSize();
     
     public DataSet actionBox(DataSet... dataSets){
         return function(dataSets);

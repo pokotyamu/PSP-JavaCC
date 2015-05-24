@@ -14,7 +14,8 @@ import sqlbox.ProductivityTime;
  *
  * @author pokotyamu
  */
-public class Productivity extends AbstractFunctionBox{
+public class Productivity extends AbstractTwoArgBox{
+
     @Override
     public DataSet function(String whereString){
         AbstractBox sql1 = new ProductivitySize("PROJECTID","ACTUALA");
