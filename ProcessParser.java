@@ -5,35 +5,39 @@
     import java.util.*;
 
     public class ProcessParser implements ProcessParserConstants {
-        public static void print(String path) throws IOException{
-            File file = new File(path);
-            BufferedReader br = new BufferedReader(new FileReader(file));
+        public static Contents parse(String path) throws IOException{
+            Contents c = new Contents();
             try{
-                ProcessParser pp = new ProcessParser(br);
-                pp.compilation_unit();
+                ProcessParser pp = new ProcessParser(getBR(path));
+                pp.compilation_unit(c);
             }catch(ParseException ex){
                 System.out.println(ex);
             }
+            return c;
+        }
+        private static BufferedReader getBR(String path) throws IOException{
+            return new BufferedReader(new FileReader(new File(path)));
         }
 
-  final public void compilation_unit() throws ParseException {
-    condition();
-    expression();
+  final public void compilation_unit(Contents c) throws ParseException {
+    condition(c);
+    expression(c);
   }
 
-  final public void condition() throws ParseException {String str;
-    str = assignment();
+  final public void condition(Contents c) throws ParseException {String str;
+    str = assignment(c);
 System.out.println(str);
   }
 
-  final public String assignment() throws ParseException {String t,t1;
+  final public String assignment(Contents c) throws ParseException {String t,t1;
     t = expressionName();
     jj_consume_token(EQ);
     jj_consume_token(WQ);
     t1 = assignmentExp();
     jj_consume_token(WQ);
     jj_consume_token(SM);
-{if ("" != null) return t + " = \u005c"" + t1+"\u005c";";}
+c.setCondition(t1);
+        {if ("" != null) return t + " = \u005c"" + t1+"\u005c";";}
     throw new Error("Missing return statement in function");
   }
 
@@ -49,17 +53,17 @@ System.out.println(str);
     throw new Error("Missing return statement in function");
   }
 
-  final public void expression() throws ParseException {String exp="";
-    exp = graphExpression();
+  final public void expression(Contents c) throws ParseException {String exp="";
+    exp = graphExpression(c);
     jj_consume_token(SM);
 System.out.println(exp+";");
   }
 
-  final public String graphExpression() throws ParseException {String data_exp;
+  final public String graphExpression(Contents c) throws ParseException {String data_exp;
     Token graph_type;
     jj_consume_token(GRAPH);
     jj_consume_token(LC);
-    data_exp = dataExpression();
+    data_exp = dataExpression(c);
     jj_consume_token(COM);
     jj_consume_token(WQ);
     graph_type = graphType();
@@ -69,15 +73,15 @@ System.out.println(exp+";");
     throw new Error("Missing return statement in function");
   }
 
-  final public String dataExpression() throws ParseException {String data_exp = "";
+  final public String dataExpression(Contents c) throws ParseException {String data_exp = "";
     switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
     case DB:{
-      data_exp = dbExpression();
+      data_exp = dbExpression(c);
 {if ("" != null) return data_exp;}
       break;
       }
     case IDENTIFIERS:{
-      data_exp = processExpression();
+      data_exp = processExpression(c);
 {if ("" != null) return data_exp;}
       break;
       }
@@ -89,20 +93,21 @@ System.out.println(exp+";");
     throw new Error("Missing return statement in function");
   }
 
-  final public String processExpression() throws ParseException {Token name;
+  final public String processExpression(Contents c) throws ParseException {Token name;
     String input;
     name = processName();
-System.out.println("Pro_name: "+name);
+c.addPro(name.image);
+            System.out.println("Pro_name: "+name);
     jj_consume_token(LC);
-    input = input();
+    input = input(c);
     jj_consume_token(RC);
 System.out.println("input: "+input);
             {if ("" != null) return name.image + "("+input+")";}
     throw new Error("Missing return statement in function");
   }
 
-  final public String input() throws ParseException {String exp,temp;
-    exp = dataExpression();
+  final public String input(Contents c) throws ParseException {String exp,temp;
+    exp = dataExpression(c);
 System.out.println("exp: "+exp);
     label_1:
     while (true) {
@@ -116,7 +121,7 @@ System.out.println("exp: "+exp);
         break label_1;
       }
       jj_consume_token(COM);
-      temp = dataExpression();
+      temp = dataExpression(c);
 System.out.println("temp: "+temp);
                 exp += temp;
     }
@@ -124,17 +129,18 @@ System.out.println("temp: "+temp);
     throw new Error("Missing return statement in function");
   }
 
-  final public String dbExpression() throws ParseException {String db_input;
+  final public String dbExpression(Contents c) throws ParseException {String db_input;
     jj_consume_token(DB);
 System.out.println("DB:");
     jj_consume_token(LC);
-    db_input = dbInput();
+    db_input = dbInput(c);
     jj_consume_token(RC);
-{if ("" != null) return "DB("+db_input+")";}
+c.addPro("DB("+db_input+")");
+        {if ("" != null) return "DB("+db_input+")";}
     throw new Error("Missing return statement in function");
   }
 
-  final public String dbInput() throws ParseException {Token table_name,x_asix,y_asix,condition;
+  final public String dbInput(Contents c) throws ParseException {Token table_name,x_asix,y_asix,condition;
     jj_consume_token(WQ);
     table_name = tableName();
     jj_consume_token(WQ);
@@ -151,8 +157,8 @@ System.out.println("DB:");
 System.out.println("Table:"+table_name.image);
             System.out.println("X:"+x_asix.image);
             System.out.println("Y:"+y_asix.image);
-            System.out.println("condition:"+condition.image);
-            {if ("" != null) return table_name.image+","+x_asix.image+","+y_asix.image+","+condition.image;}
+            System.out.println("condition:"+c.getCondition());
+            {if ("" != null) return table_name.image+","+x_asix.image+","+y_asix.image+","+c.getCondition();}
     throw new Error("Missing return statement in function");
   }
 
