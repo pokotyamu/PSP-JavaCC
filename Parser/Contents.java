@@ -1,4 +1,3 @@
-package Parser;
 import java.util.*;
 
 public class Contents{
