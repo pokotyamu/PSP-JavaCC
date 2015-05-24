@@ -1,2 +1,2 @@
-condition = "class=20";
-Graph(ooo(hoge(DB("table","x_asix","y_asix",condition)),DB("A","B","C",condition)),"Line");
+condition = "class=2014";
+Graph(Div(DB("PSPASSGTDATA","PROJECTID","ACTLOC",condition),MtoH(DB("PSPASSGTDATA","PROJECTID","ACTLOC",condition))),"Line");

@@ -62,7 +62,7 @@ void compilation_unit(Contents c): {
 }
 {
     condition(c)
-        expression()
+        expression(c)
 }
 
 void condition(Contents c):{
@@ -102,22 +102,22 @@ String assignmentExp():{
     t = <STR>{return t.image;}
 }
 
-void expression():{
+void expression(Contents c):{
     String exp="";
 }
 {
-    exp = graphExpression()<SM>
+    exp = graphExpression(c)<SM>
         {System.out.println(exp+";");}
 }
 
-String graphExpression():{
+String graphExpression(Contents c):{
     String data_exp;
     Token graph_type;
 }
 {
         <GRAPH>
         <LC>
-        data_exp = dataExpression()
+        data_exp = dataExpression(c)
         <COM>
         <WQ>
         graph_type = graphType()
@@ -128,18 +128,18 @@ String graphExpression():{
 
 
 
-String dataExpression():{
+String dataExpression(Contents c):{
     String data_exp = "";
 }
 {
-    data_exp = dbExpression()
+    data_exp = dbExpression(c)
       {return data_exp;}
     |
-        data_exp = processExpression()
+        data_exp = processExpression(c)
             {return data_exp;}
 }
 
-String processExpression():{
+String processExpression(Contents c):{
     Token name;
     String input;
 }
@@ -147,7 +147,7 @@ String processExpression():{
     name = processName()
         {   System.out.println("Pro_name: "+name);}
         <LC>
-       input = input()
+       input = input(c)
                <RC>
         {
 
@@ -155,32 +155,32 @@ String processExpression():{
             return name.image + "("+input+")";}
 }
 
-String input():{
+String input(Contents c):{
     String exp,temp;
 }
 {
-    exp = dataExpression()
+    exp = dataExpression(c)
         {System.out.println("exp: "+exp);}
-        (<COM> temp = dataExpression()
+        (<COM> temp = dataExpression(c)
             {
                 System.out.println("temp: "+temp);
                 exp += temp;}
-         )*
+        )*
         { return exp; }
 }
 
-String dbExpression():{
+String dbExpression(Contents c):{
     String db_input;
 }
 {
     <DB>
         {  System.out.println("DB:");}
         <LC>
-        db_input = dbInput()
+        db_input = dbInput(c)
         <RC>
     { return "DB("+db_input+")";}
 }
-String dbInput():{
+String dbInput(Contents c):{
     Token table_name,x_asix,y_asix,condition;
 }
 {
@@ -201,8 +201,8 @@ String dbInput():{
             System.out.println("Table:"+table_name.image);
             System.out.println("X:"+x_asix.image);
             System.out.println("Y:"+y_asix.image);
-            System.out.println("condition:"+condition.image);
-            return table_name.image+","+x_asix.image+","+y_asix.image+","+condition.image;}
+            System.out.println("condition:"+c.getCondition());
+            return table_name.image+","+x_asix.image+","+y_asix.image+","+c.getCondition();}
         
 }
 
