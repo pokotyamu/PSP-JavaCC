@@ -35,7 +35,7 @@ public class ACTMIN extends AbstractSQLBox{
         int SUBMITION_ID = 1;
         Random r = new Random();
         for (int st_id = 1; st_id < 4; st_id++) {
-            UserData ud = new UserData("PROJECTID", "ACTLOC", st_id, 201301);
+            UserData ud = new UserData("PROJECTID", "ACTLOC", st_id, 201401);
             for(int pro_id = 400; pro_id < 408; pro_id++){
                 ud.addData(new Pair(pro_id,100+r.nextInt(100),SUBMITION_ID));
             }
