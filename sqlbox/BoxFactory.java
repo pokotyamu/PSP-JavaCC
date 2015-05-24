@@ -20,10 +20,8 @@ public class BoxFactory {
         switch(processName){
             case "MAX":
                 return new Max();
-               
             case "MtoH":
                 return new MtoH();
-                
             case "DIV":
                 return new Division();
         }
@@ -32,5 +30,4 @@ public class BoxFactory {
     public static AbstractBox createDBBox(String x_asix, String y_asix) {
         return new ACTMIN(x_asix, y_asix);
     }
-    
 }

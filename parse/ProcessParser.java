@@ -6,6 +6,7 @@
     import java.io.*;
     import java.util.*;
     import pspdata.*;
+    import sqlbox.*;
 
     public class ProcessParser implements ProcessParserConstants {
         public static Contents parse(String path) throws IOException{
@@ -99,7 +100,7 @@ System.out.println(exp+";");
   final public String processExpression(Contents c) throws ParseException {Token name;
     String input;
     name = processName();
-c.addPro(name.image);
+c.addProcess(BoxFactory.createBox(name.image));
             System.out.println("Pro_name: "+name);
     jj_consume_token(LC);
     input = input(c);
@@ -138,8 +139,7 @@ System.out.println("DB:");
     jj_consume_token(LC);
     db_input = dbInput(c);
     jj_consume_token(RC);
-c.addPro("DB("+db_input+")");
-        {if ("" != null) return "DB("+db_input+")";}
+{if ("" != null) return "DB("+db_input+")";}
     throw new Error("Missing return statement in function");
   }
 
@@ -161,6 +161,7 @@ System.out.println("Table:"+table_name.image);
             System.out.println("X:"+x_asix.image);
             System.out.println("Y:"+y_asix.image);
             System.out.println("condition:"+c.getCondition());
+            c.addProcess(BoxFactory.createDBBox(x_asix.image,y_asix.image));
             {if ("" != null) return table_name.image+","+x_asix.image+","+y_asix.image+","+c.getCondition();}
     throw new Error("Missing return statement in function");
   }

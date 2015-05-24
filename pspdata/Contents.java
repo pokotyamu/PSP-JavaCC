@@ -1,12 +1,16 @@
 package pspdata;
 import java.util.*;
+import box.*;
+import sqlbox.*;
 
 public class Contents{
     private String condition;
     private ArrayList<String> pro_list;
+    private ArrayList<AbstractBox> pros;
     public Contents(){
         this.condition = "";
         this.pro_list = new ArrayList();
+        this.pros = new ArrayList();
     }
 
     public void setCondition(String condition){
@@ -21,10 +25,18 @@ public class Contents{
         pro_list.add(pro);
     }
 
+    public void addProcess(AbstractBox box){
+        pros.add(box);
+    }
+
     public void printPro(){
-        for(String name: pro_list){
+        for(AbstractBox name: pros){
             System.out.println(name);
         }
+    }
+
+    public ArrayList<String> getProcessList(){
+        return this.pro_list;
     }
 
     
