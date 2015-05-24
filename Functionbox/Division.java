@@ -13,7 +13,6 @@ import pspdata.Pair;
  * @author pokotyamu
  */
 public class Division extends AbstractTwoArgBox{
-
     @Override
     protected DataSet initDataSet(DataSet ds1, DataSet ds2){
         return new DataSet(ds1.getKeyString(), ds1.getValueString()+"/"+ds2.getValueString());
