@@ -96,7 +96,8 @@ System.out.println(exp+";");
   final public String processExpression(Contents c) throws ParseException {Token name;
     String input;
     name = processName();
-System.out.println("Pro_name: "+name);
+c.addPro(name.image);
+            System.out.println("Pro_name: "+name);
     jj_consume_token(LC);
     input = input(c);
     jj_consume_token(RC);
@@ -134,7 +135,8 @@ System.out.println("DB:");
     jj_consume_token(LC);
     db_input = dbInput(c);
     jj_consume_token(RC);
-{if ("" != null) return "DB("+db_input+")";}
+c.addPro("DB("+db_input+")");
+        {if ("" != null) return "DB("+db_input+")";}
     throw new Error("Missing return statement in function");
   }
 
