@@ -19,6 +19,5 @@ public class DBBox extends AbstractSQLBox{
     public String createSQL (String whereString)
     {
         return "select * from ROOT.PSPASSGTDATA " + whereString;
-       
     }
 }

@@ -6,7 +6,7 @@
     import java.io.*;
     import java.util.*;
     import pspdata.*;
-    import sqlbox.*;
+    import box.*;
 
     public class ProcessParser implements ProcessParserConstants {
         public static Contents parse(String path) throws IOException{
