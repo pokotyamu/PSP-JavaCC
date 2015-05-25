@@ -10,7 +10,7 @@ PARSER_BEGIN(ProcessParser)
     import java.io.*;
     import java.util.*;
     import pspdata.*;
-    import sqlbox.*;
+    import box.*;
 
     public class ProcessParser{
         public static Contents parse(String path) throws IOException{

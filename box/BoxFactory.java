@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sqlbox;
+package box;
 
 import Functionbox.Division;
 import Functionbox.Max;
 import Functionbox.MtoH;
-import box.AbstractBox;
-
+import sqlbox.*;
 /**
  *
  * @author pokotyamu
@@ -28,6 +27,6 @@ public class BoxFactory {
         return null;
     }
     public static AbstractBox createDBBox(String x_asix, String y_asix) {
-        return new ACTMIN(x_asix, y_asix);
+        return new DBBox(x_asix, y_asix);
     }
 }

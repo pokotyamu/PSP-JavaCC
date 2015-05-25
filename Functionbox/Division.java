@@ -24,13 +24,13 @@ public class Division extends AbstractTwoArgBox{
             if((int)p2.getY() == 0){
                 return new Pair(p1.getX(),0.0);
             }else{
-                return new Pair(p1.getX(),((double)((int)p1.getY())/(int)p2.getY()));
+                return new Pair(p1.getX(),((double)p1.getY()/(double)p2.getY()));
             }
         }catch(ClassCastException cce){
             if((double)p2.getY() == 0.0){
                 return new Pair(p1.getX(),0.0);
             }else{
-                return new Pair(p1.getX(),((double)p1.getY()/(double)p2.getY()));
+                return new Pair(p1.getX(),(new Double(p1.getY().toString())/new Double(p2.getY().toString())));
             }
         }
     }
