@@ -51,7 +51,7 @@ TOKEN :
         | <STRING: "String">
         | <DATASET :  "DataSet">
         | <GRAPH: "Graph">
-        | <DB: "DB">
+        | <DB: "DB"|"CountDB">
 
 }
 
@@ -169,15 +169,16 @@ String input(Contents c):{
 
 String dbExpression(Contents c):{
     String db_input;
+    Token db_type;
 }
 {
-    <DB>
+    db_type = <DB>
         <LC>
-        db_input = dbInput(c)
+        db_input = dbInput(c,db_type.image)
         <RC>
-    {        return "DB("+db_input+")";}
+        {        return "DB("+db_input+")";}
 }
-String dbInput(Contents c):{
+String dbInput(Contents c,String db_type):{
     Token table_name,x_asix,y_asix,condition;
 }
 {
@@ -194,7 +195,7 @@ String dbInput(Contents c):{
                      <WQ>
         <COM>
         condition = <IDENTIFIERS>
-        {   c.addProcess(BoxFactory.createDBBox(x_asix.image,y_asix.image));
+        {  c.addProcess(BoxFactory.createDBBox(x_asix.image,y_asix.image,db_type));
             return table_name.image+","+x_asix.image+","+y_asix.image+","+c.getCondition();}
         
 }

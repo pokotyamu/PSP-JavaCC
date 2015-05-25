@@ -128,15 +128,16 @@ exp += temp;
   }
 
   final public String dbExpression(Contents c) throws ParseException {String db_input;
-    jj_consume_token(DB);
+    Token db_type;
+    db_type = jj_consume_token(DB);
     jj_consume_token(LC);
-    db_input = dbInput(c);
+    db_input = dbInput(c,db_type.image);
     jj_consume_token(RC);
 {if ("" != null) return "DB("+db_input+")";}
     throw new Error("Missing return statement in function");
   }
 
-  final public String dbInput(Contents c) throws ParseException {Token table_name,x_asix,y_asix,condition;
+  final public String dbInput(Contents c,String db_type) throws ParseException {Token table_name,x_asix,y_asix,condition;
     jj_consume_token(WQ);
     table_name = tableName();
     jj_consume_token(WQ);
@@ -150,7 +151,7 @@ exp += temp;
     jj_consume_token(WQ);
     jj_consume_token(COM);
     condition = jj_consume_token(IDENTIFIERS);
-c.addProcess(BoxFactory.createDBBox(x_asix.image,y_asix.image));
+c.addProcess(BoxFactory.createDBBox(x_asix.image,y_asix.image,db_type));
             {if ("" != null) return table_name.image+","+x_asix.image+","+y_asix.image+","+c.getCondition();}
     throw new Error("Missing return statement in function");
   }

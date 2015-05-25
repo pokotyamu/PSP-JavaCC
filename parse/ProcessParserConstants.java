@@ -55,7 +55,7 @@ public interface ProcessParserConstants {
     "\"String\"",
     "\"DataSet\"",
     "\"Graph\"",
-    "\"DB\"",
+    "<DB>",
     "<IDENTIFIERS>",
     "<STR>",
   };
