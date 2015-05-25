@@ -26,8 +26,8 @@ public abstract class AbstractSQLBox extends AbstractBox{
     private final String usr = "root";
     private final String pass = "root";
     
-    private final String keyString;
-    private final String valueString;
+    protected final String keyString;
+    protected final String valueString;
     private Connection conn;
     
     //SQL作成部分。
@@ -40,7 +40,7 @@ public abstract class AbstractSQLBox extends AbstractBox{
     }
     
     //DBへの接続
-    private void connection(){
+    protected void connection(){
         try {
             this.conn = DriverManager.getConnection(URL, usr, pass);
         } catch (SQLException ex) {
@@ -49,7 +49,7 @@ public abstract class AbstractSQLBox extends AbstractBox{
     }
 
     //DBへの接続をクローズ
-    private void close(){
+    protected void close(){
         try {
             this.conn.close();
         } catch (SQLException ex) {
@@ -58,7 +58,7 @@ public abstract class AbstractSQLBox extends AbstractBox{
     }
 
     //SQLの実行結果を取得
-    private ResultSet getResultSet(String sql){
+    protected ResultSet getResultSet(String sql){
         ResultSet result = null;
         try {
             Statement stmt = this.conn.createStatement();
@@ -103,7 +103,6 @@ public abstract class AbstractSQLBox extends AbstractBox{
     
     @Override
     public DataSet getDataSet(String wheresString){
-        
         DataSet ds = new DataSet(this.keyString, this.valueString);
         connection();
         //ResultSetをとってくる。

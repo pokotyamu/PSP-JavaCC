@@ -29,4 +29,12 @@ public class BoxFactory {
     public static AbstractBox createDBBox(String x_asix, String y_asix) {
         return new DBBox(x_asix, y_asix);
     }
+
+    public static AbstractBox createDBBox(String x_asix, String y_asix, String db_type) {
+        if(db_type.equals("DB")){
+            return new DBBox(x_asix, y_asix);
+        }else{
+            return new DefectCountDBBox(x_asix, y_asix);
+        }
+    }
 }
