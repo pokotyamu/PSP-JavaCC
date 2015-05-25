@@ -107,7 +107,6 @@ public abstract class AbstractSQLBox extends AbstractBox{
         DataSet ds = new DataSet(this.keyString, this.valueString);
         connection();
         //ResultSetをとってくる。
-        System.err.println(wheresString);
         ResultSet rs = getResultSet(createSQL(wheresString));
         UserData ud = new UserData(keyString, valueString);
         try {    

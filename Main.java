@@ -1,10 +1,7 @@
 import java.io.*;
-import java.util.*;
 import parse.*;
 import pspdata.*;
-import Functionbox.*;
 import box.*;
-import sqlbox.*;
 
 public class Main{
     public static void main(String[] args) throws IOException{

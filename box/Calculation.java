@@ -1,10 +1,6 @@
 package box;
 
-import java.util.*;
-import parse.*;
 import pspdata.*;
-import Functionbox.*;
-import sqlbox.*;
 
 public class Calculation{
 
@@ -22,8 +18,6 @@ public class Calculation{
             DataSet arg1 = cal(c.getIndex(),c);
             c.nextPoint();
             DataSet arg2 = cal(c.getIndex(),c);
-            arg1.debugPrint();
-            arg2.debugPrint();
             return target.function(arg1,arg2);
         }
         return null;
