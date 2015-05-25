@@ -1,2 +1,2 @@
-condition = "class=20";
-Graph(MtoH(DB("PSPASSGTDATA","PROJECTID","ACTLOC",condition))),"Line");
+condition = "CLASS_ID=201301";
+Graph(CountDB("LOGDDETAIL","DEFECTTYPEID","COUNT",condition),"LINE");
