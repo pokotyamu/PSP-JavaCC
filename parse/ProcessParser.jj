@@ -74,7 +74,7 @@ void condition(Contents c):{
     String str;
 }
 {
-    str = assignment(c){System.out.println(str);}
+    str = assignment(c)
 }
 
 String assignment(Contents c):{
@@ -112,7 +112,6 @@ void expression(Contents c):{
 }
 {
     exp = graphExpression(c)<SM>
-        {System.out.println(exp+";");}
 }
 
 String graphExpression(Contents c):{
@@ -150,15 +149,11 @@ String processExpression(Contents c):{
 }
 {
     name = processName()
-        {   c.addProcess(BoxFactory.createBox(name.image));
-            System.out.println("Pro_name: "+name);}
+    {   c.addProcess(BoxFactory.createBox(name.image));}
         <LC>
        input = input(c)
                <RC>
-        {
-
-            System.out.println("input: "+input);
-            return name.image + "("+input+")";}
+        { return name.image + "("+input+")";}
 }
 
 String input(Contents c):{
@@ -166,11 +161,8 @@ String input(Contents c):{
 }
 {
     exp = dataExpression(c)
-        {System.out.println("exp: "+exp);}
         (<COM> temp = dataExpression(c)
-            {
-                System.out.println("temp: "+temp);
-                exp += temp;}
+            { exp += temp;}
         )*
         { return exp; }
 }
@@ -180,7 +172,6 @@ String dbExpression(Contents c):{
 }
 {
     <DB>
-        {  System.out.println("DB:");}
         <LC>
         db_input = dbInput(c)
         <RC>
@@ -203,12 +194,7 @@ String dbInput(Contents c):{
                      <WQ>
         <COM>
         condition = <IDENTIFIERS>
-        {
-            System.out.println("Table:"+table_name.image);
-            System.out.println("X:"+x_asix.image);
-            System.out.println("Y:"+y_asix.image);
-            System.out.println("condition:"+c.getCondition());
-            c.addProcess(BoxFactory.createDBBox(x_asix.image,y_asix.image));
+        {   c.addProcess(BoxFactory.createDBBox(x_asix.image,y_asix.image));
             return table_name.image+","+x_asix.image+","+y_asix.image+","+c.getCondition();}
         
 }

@@ -41,7 +41,6 @@ public class ACTMIN extends AbstractSQLBox{
             }
             ds.addUserData(ud);
         }
-        ds.debugPrint();
         return ds;
     }
 }

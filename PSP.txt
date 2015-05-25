@@ -1,3 +1,2 @@
 condition = "class=20";
-Graph(DB("A","B","C",condition),"Line");
-
+Graph(MtoH(MtoH(DB("PSPASSGTDATA","PROJECTID","ACTLOC",condition))),"Line");

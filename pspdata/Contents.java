@@ -5,12 +5,10 @@ import sqlbox.*;
 
 public class Contents{
     private String condition;
-    private ArrayList<String> pro_list;
-    private ArrayList<AbstractBox> pros;
+    private ArrayList<AbstractBox> process_list;
     public Contents(){
         this.condition = "";
-        this.pro_list = new ArrayList();
-        this.pros = new ArrayList();
+        this.process_list = new ArrayList();
     }
 
     public void setCondition(String condition){
@@ -21,24 +19,22 @@ public class Contents{
         return this.condition;
     }
 
-    public void addPro(String pro){
-        pro_list.add(pro);
-    }
-
     public void addProcess(AbstractBox box){
-        pros.add(box);
+        process_list.add(box);
     }
 
     public void printPro(){
-        for(AbstractBox name: pros){
+        for(AbstractBox name: process_list){
             System.out.println(name);
             System.out.println(name.getArgSize());
         }
     }
 
-    public ArrayList<String> getProcessList(){
-        return this.pro_list;
+    public ArrayList<AbstractBox> getProcessList(){
+        return this.process_list;
     }
-
+    public AbstractBox getProcess(int index){
+        return this.process_list.get(index);
+    }
     
 }
