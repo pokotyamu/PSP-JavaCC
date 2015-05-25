@@ -27,6 +27,6 @@ public class BoxFactory {
         return null;
     }
     public static AbstractBox createDBBox(String x_asix, String y_asix) {
-        return new ACTMIN(x_asix, y_asix);
+        return new DBBox(x_asix, y_asix);
     }
 }

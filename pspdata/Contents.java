@@ -6,9 +6,11 @@ import sqlbox.*;
 public class Contents{
     private String condition;
     private ArrayList<AbstractBox> process_list;
+    private int index;
     public Contents(){
         this.condition = "";
         this.process_list = new ArrayList();
+        this.index = 0;
     }
 
     public void setCondition(String condition){
@@ -33,8 +35,19 @@ public class Contents{
     public ArrayList<AbstractBox> getProcessList(){
         return this.process_list;
     }
+    
     public AbstractBox getProcess(int index){
         return this.process_list.get(index);
     }
+
+    public void nextPoint() {
+        this.index++;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+    
+    
     
 }
