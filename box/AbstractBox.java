@@ -7,7 +7,6 @@ package box;
 
 import pspdata.DataSet;
 import sqlbox.AbstractSQLBox;
-import pspdata.UserData;
 
 /**
  *
