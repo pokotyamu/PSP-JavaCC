@@ -12,7 +12,7 @@ import pspdata.Pair;
  *
  * @author pokotyamu
  */
-public class MtoH extends AbstractFunctionBox{
+public class MtoH extends AbstractOneArgBox{
     
     @Override
     protected DataSet initDataSet(DataSet dataSet){

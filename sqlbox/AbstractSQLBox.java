@@ -129,4 +129,10 @@ public abstract class AbstractSQLBox extends AbstractBox{
         close();
         return ds;
     }
+
+
+    @Override
+    public int getArgSize(){
+        return 0;
+    }
 }

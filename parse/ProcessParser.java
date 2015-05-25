@@ -6,6 +6,7 @@
     import java.io.*;
     import java.util.*;
     import pspdata.*;
+    import sqlbox.*;
 
     public class ProcessParser implements ProcessParserConstants {
         public static Contents parse(String path) throws IOException{
@@ -29,7 +30,6 @@
 
   final public void condition(Contents c) throws ParseException {String str;
     str = assignment(c);
-System.out.println(str);
   }
 
   final public String assignment(Contents c) throws ParseException {String t,t1;
@@ -59,7 +59,6 @@ c.setCondition(t1);
   final public void expression(Contents c) throws ParseException {String exp="";
     exp = graphExpression(c);
     jj_consume_token(SM);
-System.out.println(exp+";");
   }
 
   final public String graphExpression(Contents c) throws ParseException {String data_exp;
@@ -99,19 +98,16 @@ System.out.println(exp+";");
   final public String processExpression(Contents c) throws ParseException {Token name;
     String input;
     name = processName();
-c.addPro(name.image);
-            System.out.println("Pro_name: "+name);
+c.addProcess(BoxFactory.createBox(name.image));
     jj_consume_token(LC);
     input = input(c);
     jj_consume_token(RC);
-System.out.println("input: "+input);
-            {if ("" != null) return name.image + "("+input+")";}
+{if ("" != null) return name.image + "("+input+")";}
     throw new Error("Missing return statement in function");
   }
 
   final public String input(Contents c) throws ParseException {String exp,temp;
     exp = dataExpression(c);
-System.out.println("exp: "+exp);
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
@@ -125,8 +121,7 @@ System.out.println("exp: "+exp);
       }
       jj_consume_token(COM);
       temp = dataExpression(c);
-System.out.println("temp: "+temp);
-                exp += temp;
+exp += temp;
     }
 {if ("" != null) return exp;}
     throw new Error("Missing return statement in function");
@@ -134,12 +129,10 @@ System.out.println("temp: "+temp);
 
   final public String dbExpression(Contents c) throws ParseException {String db_input;
     jj_consume_token(DB);
-System.out.println("DB:");
     jj_consume_token(LC);
     db_input = dbInput(c);
     jj_consume_token(RC);
-c.addPro("DB("+db_input+")");
-        {if ("" != null) return "DB("+db_input+")";}
+{if ("" != null) return "DB("+db_input+")";}
     throw new Error("Missing return statement in function");
   }
 
@@ -157,10 +150,7 @@ c.addPro("DB("+db_input+")");
     jj_consume_token(WQ);
     jj_consume_token(COM);
     condition = jj_consume_token(IDENTIFIERS);
-System.out.println("Table:"+table_name.image);
-            System.out.println("X:"+x_asix.image);
-            System.out.println("Y:"+y_asix.image);
-            System.out.println("condition:"+c.getCondition());
+c.addProcess(BoxFactory.createDBBox(x_asix.image,y_asix.image));
             {if ("" != null) return table_name.image+","+x_asix.image+","+y_asix.image+","+c.getCondition();}
     throw new Error("Missing return statement in function");
   }

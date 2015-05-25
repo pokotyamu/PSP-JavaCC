@@ -1,2 +1,2 @@
-condition = "class=2014";
-Graph(Div(DB("PSPASSGTDATA","PROJECTID","ACTLOC",condition),MtoH(DB("PSPASSGTDATA","PROJECTID","ACTLOC",condition))),"Line");
+condition = "CLASS_ID=201401";
+Graph(DIV(DB("PSPASSGTDATA","PROJECTID","ACTLOC",condition),MtoH(DB("PSPASSGTDATA","PROJECTID","ACTLOC",condition))),"Line");

@@ -18,10 +18,11 @@ public abstract class AbstractFunctionBox extends AbstractBox{
 
     @Override
     public DataSet function(DataSet... args) {
-        if(args.length > 1)
+        if(args.length > 1){
             return function(args[0],args[1]);
-        else
+        }else{
             return function(args[0]);
+        }
     }
     
     protected DataSet function(DataSet ds){
@@ -57,7 +58,9 @@ public abstract class AbstractFunctionBox extends AbstractBox{
             dataset.addUserData(addedUserData);
         }
         return dataset;
-    }        
+    }
+
+
     
     @Override
     public DataSet function(String whereString){

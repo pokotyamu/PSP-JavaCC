@@ -12,8 +12,7 @@ import pspdata.Pair;
  *
  * @author pokotyamu
  */
-public class Division extends AbstractFunctionBox{
-
+public class Division extends AbstractTwoArgBox{
     @Override
     protected DataSet initDataSet(DataSet ds1, DataSet ds2){
         return new DataSet(ds1.getKeyString(), ds1.getValueString()+"/"+ds2.getValueString());
@@ -25,7 +24,7 @@ public class Division extends AbstractFunctionBox{
             if((int)p2.getY() == 0){
                 return new Pair(p1.getX(),0.0);
             }else{
-                return new Pair(p1.getX(),((double)p1.getY()/(int)p2.getY()));
+                return new Pair(p1.getX(),((double)((int)p1.getY())/(int)p2.getY()));
             }
         }catch(ClassCastException cce){
             if((double)p2.getY() == 0.0){

@@ -1,9 +1,15 @@
 import java.io.*;
+import java.util.*;
 import parse.*;
 import pspdata.*;
+import Functionbox.*;
+import box.*;
+import sqlbox.*;
+
 public class Main{
     public static void main(String[] args) throws IOException{
         Contents c = ProcessParser.parse("PSP1.txt");
-        c.printPro();
+        Calculation.cal(0,c).debugPrint();
     }
 }
+
