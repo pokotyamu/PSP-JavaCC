@@ -16,17 +16,15 @@ import pspdata.UserData;
 public class ParetoParser extends AbstractDataSetParser{
 
     @Override
-    GraphDataSet parse(DataSet ds) {
+    public GraphDataSet parse(DataSet ds) {
         GraphDataSet parsedDataSet = new GraphDataSet();
+        ds.sortY();
         UserData u = ds.getUserData(0);
         SeriesData xasix = new SeriesData(u.getKeyString(), u.getST_ID(), u.getClass_ID());
-
         for (Pair p : u.getPairs()) {
             xasix.addData(p.getX());
         }
         parsedDataSet.addXasix(xasix);
-
-        
         for (UserData ud : ds.getUserDatas()) {
             SeriesData yasix = new SeriesData(ud.getKeyString(), ud.getST_ID(),ud.getClass_ID());
             for (Pair p : ud.getPairs()) {
