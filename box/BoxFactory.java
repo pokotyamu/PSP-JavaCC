@@ -8,6 +8,9 @@ package box;
 import Functionbox.Division;
 import Functionbox.Max;
 import Functionbox.MtoH;
+import Graphbox.AbstractDataSetParser;
+import Graphbox.ParetoParser;
+import Graphbox.SeriesParser;
 import sqlbox.*;
 /**
  *
@@ -26,9 +29,6 @@ public class BoxFactory {
         }
         return null;
     }
-    public static AbstractBox createDBBox(String x_asix, String y_asix) {
-        return new DBBox(x_asix, y_asix);
-    }
 
     public static AbstractBox createDBBox(String x_asix, String y_asix, String db_type) {
         switch(db_type){
@@ -39,6 +39,16 @@ public class BoxFactory {
                 
             case "AllDefectCount":
                 return new AllDefectCountDBBox(x_asix,y_asix);
+        }
+        return null;
+    }
+    
+    public static AbstractDataSetParser createGraphParser(String graph_type){
+        switch(graph_type){
+            case "Line":
+                return new SeriesParser();
+            case "Pareto":
+                return new ParetoParser();
         }
         return null;
     }

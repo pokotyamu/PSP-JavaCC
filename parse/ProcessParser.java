@@ -71,7 +71,8 @@ c.setCondition(t1);
     graph_type = graphType();
     jj_consume_token(WQ);
     jj_consume_token(RC);
-{if ("" != null) return "Graph.print("+data_exp+","+graph_type.image+")";}
+c.setParser(BoxFactory.createGraphParser(graph_type.image));
+            {if ("" != null) return "Graph.print("+data_exp+","+graph_type.image+")";}
     throw new Error("Missing return statement in function");
   }
 

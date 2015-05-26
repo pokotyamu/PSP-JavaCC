@@ -1,2 +1,2 @@
 condition = "CLASS_ID=201301";
-Graph(CountDB("LOGDDETAIL","DEFECTTYPEID","COUNT",condition),"LINE");
+Graph(AllDefectCount("LOGDDETAIL","DEFECTTYPEID","COUNT",condition),"Pareto");

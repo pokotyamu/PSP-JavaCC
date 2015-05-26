@@ -5,12 +5,19 @@
  */
 package Graphbox;
 
+import box.Calculation;
+import pspdata.Contents;
 import pspdata.DataSet;
 
 /**
  *
  * @author pokotyamu
  */
-public abstract class AbstractDataSetParser {
-    public abstract GraphDataSet parse(DataSet ds);
+public class GraphCreater {
+
+    public static GraphDataSet make(Contents c) {
+        DataSet dataSet = Calculation.cal(0, c);
+        return c.getParser().parse(dataSet);
+    }
+    
 }

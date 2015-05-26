@@ -2,11 +2,13 @@ package pspdata;
 import java.util.*;
 import box.*;
 import sqlbox.*;
+import Graphbox.*;
 
 public class Contents{
     private String condition;
     private ArrayList<AbstractBox> process_list;
     private int index;
+    private AbstractDataSetParser parser;
     public Contents(){
         this.condition = "";
         this.process_list = new ArrayList();
@@ -47,7 +49,13 @@ public class Contents{
     public int getIndex() {
         return index;
     }
-    
-    
+
+    public void setParser(AbstractDataSetParser parser) {
+        this.parser = parser;
+    }
+
+    public AbstractDataSetParser getParser() {
+        return parser;
+    }
     
 }
