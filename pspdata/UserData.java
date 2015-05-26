@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class UserData {
     
-    List<Pair> pairs;
+    ArrayList<Pair> pairs;
 
     private String keyString;
     private String valueString;
@@ -144,5 +144,19 @@ public class UserData {
 
     private String dataInfo() {
         return "[ST_ID="+this.st_id+",Class_ID="+this.class_id+"]";
+    }
+
+    protected void sortY() {
+        for (int i = 0; i < pairs.size(); i++) {
+            Pair p = pairs.get(i);
+            for (int j = i+1; j < pairs.size(); j++) {
+                Pair tempp = pairs.get(j);
+                if((int)p.getY() < (int)tempp.getY()){
+                    pairs.set(i, tempp);
+                    pairs.set(j, p);
+                    p = tempp;
+                }
+            }
+        }
     }
 }
