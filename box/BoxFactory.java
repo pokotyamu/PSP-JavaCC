@@ -31,10 +31,15 @@ public class BoxFactory {
     }
 
     public static AbstractBox createDBBox(String x_asix, String y_asix, String db_type) {
-        if(db_type.equals("DB")){
-            return new DBBox(x_asix, y_asix);
-        }else{
-            return new DefectCountDBBox(x_asix, y_asix);
+        switch(db_type){
+            case "DB":
+                return new DBBox(x_asix, y_asix);
+            case "CountDB":
+                return new DefectCountDBBox(x_asix, y_asix);
+                
+            case "AllDefectCount":
+                return new AllDefectCountDBBox(x_asix,y_asix);
         }
+        return null;
     }
 }
