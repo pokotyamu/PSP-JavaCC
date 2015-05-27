@@ -32,11 +32,9 @@ public class Max extends AbstractOneArgBox{
         int max_pro_id = getMaxProjectID(ds);
         Pair maxPair;
         Pair tempPair;
-        for(int index = 0; index < max_pro_id-PROID; index++)
-        {
+        for(int index = 0; index < max_pro_id-PROID; index++){
             maxPair = new Pair("","");
-            for(int i = 0; i < ds.getUserDataSize(); i++)
-            {
+            for(int i = 0; i < ds.getUserDataSize(); i++){
                 // 演習課題ごとのユーザの値をみていく
                 try{
                     if(maxPair.getX() == ""){
@@ -60,17 +58,14 @@ public class Max extends AbstractOneArgBox{
     }
     
     // DataSet 内の UserData から最大演習課題番号を求める
-    int getMaxProjectID(DataSet ds)
-    {
+    private int getMaxProjectID(DataSet ds){
         int max_size = ds.getUserData(0).getSize();
         int max_pro_id = Integer.parseInt(ds.getUserData(0).getPair(max_size - 1).getX().toString());
-        for(int i = 1; i < ds.getUserDataSize(); i++)
-        {
+        for(int i = 1; i < ds.getUserDataSize(); i++){
             // 各 UserData の最後の演習課題の番号を取得
             max_size = ds.getUserData(i).getSize();
             int temp = Integer.parseInt(ds.getUserData(i).getPair(max_size - 1).getX().toString());
-            if(max_pro_id < temp)
-            {
+            if(max_pro_id < temp){
                 max_pro_id = temp;
             }
         }

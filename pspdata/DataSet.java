@@ -67,4 +67,10 @@ public class DataSet {
             ud.debugPrint();
         }
     }
+    
+    public void sortY(){
+        for (UserData ud : userdatas) {
+            ud.sortY();
+        }
+    }
 }

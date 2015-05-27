@@ -51,7 +51,7 @@ TOKEN :
         | <STRING: "String">
         | <DATASET :  "DataSet">
         | <GRAPH: "Graph">
-        | <DB: "DB"|"CountDB">
+        | <DB: "DB"|"CountDB"|"AllDefectCount">
 
 }
 
@@ -127,7 +127,9 @@ String graphExpression(Contents c):{
         graph_type = graphType()
         <WQ>
         <RC>
-        { return "Graph.print("+data_exp+","+graph_type.image+")"; }
+        {
+            c.setParser(BoxFactory.createGraphParser(graph_type.image));
+            return "Graph.print("+data_exp+","+graph_type.image+")"; }
 }
 
 
